@@ -23,15 +23,17 @@ class Extract_Image():
         start_time = time.time()
         for item in data:
             item_start_time = time.time()
-            feature, mask = self.vison_embedding(item['image_id'])
-            np.save(
-                os.join(self.folder_out,f"{item['id']}.npy"),
-                {
-                    "image_id":item["image_id"],
-                    "text_feature":feature,
-                    "text_mask":mask
-                }
-            )
+            feature, mask = self.vision_embedding(item['text'])
+            for i in range(len(item['id'])):
+                np.save(
+                    os.path.join(self.folder_out,f"{item['id'][i]}.npy"),
+                    {
+                      "id": item["id"][i],
+                      "text_feature": feature[i].detach().cpu().numpy(),
+                      "text_mask": mask[i].detach().cpu().numpy()
+                    },
+                    allow_pickle = True
+                )
 
             item_end_time = time.time()
             item_time = item_end_time - item_start_time
@@ -41,5 +43,6 @@ class Extract_Image():
         total_execution_time = end_time - start_time
         print(f"Total time taken: {total_execution_time} seconds")
         print(f"Average time per item: {total_time / len(data)} seconds")
+
 
 

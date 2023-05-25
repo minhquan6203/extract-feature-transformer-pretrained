@@ -2,6 +2,7 @@ json_file: map_text.json
 batch_size: 512
 text_folder_out: ./text_feature
 image_folder_out: ./image_featue
+num_workers: 4
 
 tokenizer:
   padding: True
