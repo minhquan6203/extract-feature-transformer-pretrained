@@ -13,16 +13,21 @@ class Extract_Image():
         self.vision_embedding=Vision_Embedding(config)
         data = self.data_loader.get_dataloader()
         self.folder_out=config['image_folder_out']
+    def extract(self):
+        if not os.path.exists(self.folder_out):
+            os.makedirs(self.folder_out)
+        print("loading data")
+        data = self.data_loader.get_dataloader()
         total_time = 0 
         print("extracting, please wait")
         start_time = time.time()
         for item in data:
             item_start_time = time.time()
-            feature, mask = self.vision_embedding(item['text'])
+            feature, mask = self.vison_embedding(item['image_id'])
             np.save(
                 os.join(self.folder_out,f"{item['id']}.npy"),
                 {
-                    "id":item["id"],
+                    "image_id":item["image_id"],
                     "text_feature":feature,
                     "text_mask":mask
                 }
@@ -36,4 +41,5 @@ class Extract_Image():
         total_execution_time = end_time - start_time
         print(f"Total time taken: {total_execution_time} seconds")
         print(f"Average time per item: {total_time / len(data)} seconds")
+
 
