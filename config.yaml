@@ -1,0 +1,24 @@
+json_file: map_text.json
+batch_size: 512
+text_folder_out: ./text_feature
+image_folder_out: ./image_featue
+
+tokenizer:
+  padding: True
+  max_length: 256
+  truncation: True
+  return_token_type_ids: True
+  return_attention_mask: True
+
+text_embedding:
+  text_encoder: bert-base-multilingual-uncased
+  d_features: 768
+  d_model: 128
+  dropout: 0.1
+
+vision_embedding:
+  image_encoder: google/vit-base-patch16-224-in21k
+  d_features: 768
+  d_model: 512
+  dropout: 0.1
+
