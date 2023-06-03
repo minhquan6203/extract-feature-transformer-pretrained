@@ -1,12 +1,13 @@
 json_file: map_text.json
+image_folder: train
 batch_size: 512
 text_folder_out: ./text_feature
 image_folder_out: ./image_featue
 num_workers: 4
 
 tokenizer:
-  padding: True
-  max_length: 256
+  padding: max_length
+  max_length: 20
   truncation: True
   return_token_type_ids: True
   return_attention_mask: True
@@ -14,7 +15,7 @@ tokenizer:
 text_embedding:
   text_encoder: bert-base-multilingual-uncased
   d_features: 768
-  d_model: 128
+  d_model: 512
   dropout: 0.1
 
 vision_embedding:

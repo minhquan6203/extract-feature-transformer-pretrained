@@ -11,7 +11,7 @@ class Extract_Image():
         self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
         self.data_loader=Data_Loader(config)
         self.vision_embedding=Vision_Embedding(config)
-        data = self.data_loader.get_dataloader()
+        self.data_loader=Data_Loader(config)
         self.folder_out=config['image_folder_out']
     def extract(self):
         if not os.path.exists(self.folder_out):
@@ -23,10 +23,10 @@ class Extract_Image():
         start_time = time.time()
         for item in data:
             item_start_time = time.time()
-            feature, mask = self.vision_embedding(item['text'])
+            feature, mask = self.vision_embedding(item['image_id'])
             for i in range(len(item['id'])):
                 np.save(
-                    os.path.join(self.folder_out,f"{item['id'][i]}.npy"),
+                    os.path.join(self.folder_out,f"{item['image_id'][i]}.npy"),
                     {
                       "id": item["id"][i],
                       "text_feature": feature[i].detach().cpu().numpy(),

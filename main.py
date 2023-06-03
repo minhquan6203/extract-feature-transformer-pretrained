@@ -2,6 +2,7 @@ import argparse
 import torch
 from utils.get_config import get_config
 from text_module.extract_text import Extract_Text
+from vision_module.extract_image import Extract_Image
 parser = argparse.ArgumentParser()
 parser.add_argument("--config-file", type=str, required = True)
 args = parser.parse_args()
